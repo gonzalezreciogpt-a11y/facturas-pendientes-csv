@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="robots" content="index,follow">
+ <title>Calculadora gratis de precio mínimo y margen de un servicio</title>
+ <meta name="description" content="Calcula gratis el precio mínimo de un servicio con costes, margen objetivo y comisiones de cobro. Compara tu precio propuesto. Sin registro ni envío de datos.">
+ <link rel="canonical" href="https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/precio-servicio/">
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="Precio mínimo de un servicio: calculadora gratuita">
+ <meta property="og:description" content="Costes, comisiones y margen neto: calcula un precio y comprueba tu presupuesto en el navegador.">
+ <meta property="og:url" content="https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/precio-servicio/">
+ <link rel="stylesheet" href="../style.css">
+ <style>.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.form-grid input{width:100%;border:1px solid #b5cbc8;border-radius:10px;padding:13px;font:inherit;color:#203945;background:#fbfdfc}.field-help{font-size:14px;color:#5e747c;line-height:1.45;margin:9px 0 0}.math{font-size:18px;line-height:1.7}.math code{font-size:16px}.quote-box{padding:22px;border:1px solid #dbe7e4;border-radius:12px;background:#f7faf9}.good{color:#146a4c;font-weight:800}.bad{color:#9a3026;font-weight:800}@media(max-width:650px){.form-grid{grid-template-columns:1fr}}</style>
+ <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de precio mínimo de servicios","url":"https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/precio-servicio/","applicationCategory":"BusinessApplication","operatingSystem":"Navegador web","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"description":"Calcula el precio mínimo de un servicio a partir de costes, margen neto deseado y comisiones de cobro."}</script>
+ <script type="module" src="app.js"></script>
+</head>
+<body>
+ <header class="site-header"><div class="shell header-inner"><a class="brand" href="../">Herramientas Claras</a><a class="header-link" href="../">Calculadora de facturas</a></div></header>
+ <main class="shell">
+  <section class="hero"><div class="eyebrow">Herramienta gratuita · presupuestos de servicios</div><h1>¿Qué precio cubre tus costes y tu margen?</h1><p class="lead">Introduce costes directos, margen deseado y comisión de cobro. Verás un precio orientativo y podrás comprobar si tu propia oferta alcanza ese margen. <strong>El cálculo se hace en tu navegador.</strong></p><div class="hero-points"><span>Sin registro</span><span>Sin enviar datos</span><span>Antes de impuestos</span></div></section>
+  <section class="card" aria-labelledby="datos"><div class="section-heading"><span class="step">1</span><div><h2 id="datos">Introduce tus cifras</h2><p>Usa importes sin IVA y sin separadores de millares. Admite coma o punto decimal.</p></div></div>
+   <div class="form-grid">
+    <div><label for="coste">Coste total del servicio (€)</label><input id="coste" inputmode="decimal" autocomplete="off" placeholder="400"><p class="field-help">Incluye tu tiempo valorado, proveedores, materiales y otros costes que correspondan al encargo.</p></div>
+    <div><label for="margen">Margen objetivo después de comisiones (%)</label><input id="margen" inputmode="decimal" autocomplete="off" placeholder="30"><p class="field-help">Es beneficio dividido entre ingreso después de la comisión, no un recargo sobre el coste.</p></div>
+    <div><label for="comision">Comisión variable del cobro (%)</label><input id="comision" inputmode="decimal" autocomplete="off" placeholder="3"><p class="field-help">Introduce 0 si ese medio de cobro no tiene comisión porcentual.</p></div>
+    <div><label for="fija">Comisión fija por cobro (€)</label><input id="fija" inputmode="decimal" autocomplete="off" placeholder="0,30"><p class="field-help">Introduce 0 si no hay cargo fijo.</p></div>
+    <div><label for="precio-propuesto">Tu precio propuesto (€), opcional</label><input id="precio-propuesto" inputmode="decimal" autocomplete="off" placeholder="500"><p class="field-help">Sirve para comparar un presupuesto que ya tienes en mente.</p></div>
+   </div>
+   <div class="helper-actions"><button id="ejemplo" class="text-button" type="button">Cargar ejemplo ficticio</button><button id="limpiar" class="text-button" type="button">Borrar cifras</button></div>
+   <button id="calcular" class="primary" type="button">Calcular precio</button><p id="mensaje" class="message" role="status" aria-live="polite"></p>
+  </section>
+  <section id="resultados" class="results" aria-labelledby="resultado" hidden><div class="section-heading"><span class="step">2</span><div><h2 id="resultado">Resultado orientativo</h2><p>El precio se redondea hacia arriba al euro para no quedar por debajo del objetivo.</p></div></div><div class="metric-grid"><div class="metric highlight"><span>Precio sugerido</span><strong id="precio-minimo">—</strong></div><div class="metric"><span>Comisión estimada</span><strong id="comision-estimada">—</strong></div><div class="metric"><span>Ingreso tras comisión</span><strong id="ingreso-neto">—</strong></div><div class="metric"><span>Beneficio</span><strong id="beneficio">—</strong></div><div class="metric"><span>Margen obtenido</span><strong id="margen-real">—</strong></div></div><div id="quote" class="quote-box" hidden><h3>Tu precio propuesto: <span id="quote-price"></span></h3><p>Beneficio: <strong id="quote-profit"></strong> · Margen: <strong id="quote-margin"></strong></p><p id="quote-status"></p></div></section>
+  <section class="info-grid"><article class="info-card"><h2>Cómo sale el precio</h2><p class="math">Precio antes de redondear = (coste ÷ (1 − margen objetivo) + comisión fija) ÷ (1 − comisión variable).</p><p>Con 400 € de costes, margen del 30 %, comisión del 3 % y 0,30 € fijos, el precio sugerido es 590 €. La comisión a ese precio es 18 €; quedan 572 € y el beneficio es 172 €. El margen sobre los 572 € es aproximadamente 30,07 %.</p><p>El redondeo al euro mantiene el cálculo sencillo; los importes de comisión mostrados son estimaciones matemáticas, no el cargo final de una plataforma.</p></article><article class="info-card accent"><h2>¿Presupuestas varios servicios?</h2><p>La <a href="https://payhip.com/b/07AQD">plantilla Excel de precios y márgenes de servicios</a> permite desglosar hasta 50 líneas de coste y probar distintos precios. Es un producto de pago independiente; esta calculadora es gratuita y funciona completa sin comprarlo.</p></article></section>
+  <p class="fine-print">La herramienta no calcula IVA, IRPF ni otros impuestos, costes generales que no hayas incluido o demanda del mercado. El resultado no garantiza que un cliente acepte el precio. Verifica las comisiones reales y tu estructura de costes antes de enviar un presupuesto.</p>
+ </main>
+ <footer class="site-footer"><div class="shell">Herramientas Claras · <a href="https://github.com/gonzalezreciogpt-a11y/facturas-pendientes-csv">Código y licencia MIT</a> · Sin analítica ni anuncios en esta página</div></footer>
+</body>
+</html>
