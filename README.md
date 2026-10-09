@@ -6,6 +6,8 @@ Pequeña herramienta gratuita para saber cuánto queda por cobrar, qué saldo ya
 
 La [calculadora web gratuita](https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/) permite pegar o seleccionar el CSV y consultar los saldos sin instalar Python. El archivo se procesa localmente en el navegador; la página no envía los datos a un servidor. Admite hasta 5.000 facturas y archivos de 2 MB. El código de la página está en [`docs/`](docs/).
 
+También publicamos una [calculadora gratuita del precio mínimo de un servicio](https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/precio-servicio/). Introduce costes, margen objetivo y comisión de cobro; la página muestra un precio redondeado al euro superior y comprueba tu propio presupuesto. Usa solo datos en el navegador y ofrece el método completo sin compra.
+
 ## Uso
 
 Guarda tus datos como CSV UTF-8 con estas seis columnas:
