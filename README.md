@@ -21,6 +21,8 @@ python analiza_facturas.py ejemplo-ficticio.csv --fecha 2026-10-09
 
 Con el ejemplo ficticio, el resultado es: **1.800 € emitidos, 550 € cobrados, 1.250 € pendientes, 750 € vencidos y 500 € que vencen en siete días**. Una factura vence si su fecha de vencimiento es anterior a la fecha de consulta; el día exacto de vencimiento aún aparece en «vence en 7 días». Las facturas completamente cobradas no cuentan como pendientes.
 
+Si quieres entender el cálculo antes de usar tus propios datos, consulta la [guía con tres facturas ficticias y fórmulas de Excel](https://herramientasclarasgestion.blogspot.com/2026/10/facturas-vencidas-saldo-pendiente-excel.html). Explica qué cambia cuando se cobra solo una parte de una factura y cómo separar los saldos vencidos de los próximos vencimientos.
+
 El programa excluye de los totales las filas con datos incompletos, duplicados, importes negativos, más de dos decimales, cobros mayores que el importe o vencimientos anteriores a la emisión. Al terminar, muestra las filas que hay que corregir. Si hay filas inválidas, devuelve código de salida 1; si faltan las cabeceras o no puede abrir el archivo, devuelve 2.
 
 ## Alcance
