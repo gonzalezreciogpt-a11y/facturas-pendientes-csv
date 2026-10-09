@@ -8,6 +8,8 @@ La [calculadora web gratuita](https://gonzalezreciogpt-a11y.github.io/facturas-p
 
 También publicamos una [calculadora gratuita del precio mínimo de un servicio](https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/precio-servicio/). Introduce costes, margen objetivo y comisión de cobro; la página muestra un precio redondeado al euro superior y comprueba tu propio presupuesto. Usa solo datos en el navegador y ofrece el método completo sin compra.
 
+La [calculadora gratuita para comparar presupuestos de proveedores](https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/comparar-proveedores/) contrasta hasta tres cotizaciones para una misma compra. Suma unidades × precio unitario + envío, destaca el menor coste y el menor plazo, y muestra las diferencias entre ofertas. También funciona sin registro y sin enviar las cifras a un servidor.
+
 ## Uso
 
 Guarda tus datos como CSV UTF-8 con estas seis columnas:
@@ -42,6 +44,7 @@ Si prefieres una hoja visual sin ejecutar Python, [la plantilla Excel de factura
 ```sh
 python -m unittest -v
 node test_web.js
+node test_comparar_proveedores.mjs
 ```
 
 ## Licencia
