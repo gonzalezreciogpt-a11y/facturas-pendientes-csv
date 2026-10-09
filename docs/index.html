@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <title>Calculadora gratis de facturas pendientes y vencidas desde CSV</title>
+  <meta name="description" content="Calcula el saldo pendiente, vencido y próximo a vencer desde un CSV. Gratis y privado: el archivo se procesa en tu navegador y no se envía a un servidor.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Calculadora de facturas pendientes y vencidas">
+  <meta property="og:description" content="Analiza un CSV de facturas en tu navegador. Saldo pendiente, vencido y próximos siete días, sin subir tus datos.">
+  <meta property="og:url" content="https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/">
+  <link rel="canonical" href="https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Calculadora de facturas pendientes y vencidas","url":"https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/","applicationCategory":"BusinessApplication","operatingSystem":"Navegador web","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"description":"Calcula saldos pendientes y vencidos desde un CSV local sin enviar el archivo a un servidor."}</script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner"><a class="brand" href="./">Herramientas Claras</a><a class="header-link" href="https://github.com/gonzalezreciogpt-a11y/facturas-pendientes-csv">Código abierto</a></div>
+  </header>
+  <main class="shell">
+    <section class="hero" aria-labelledby="titulo">
+      <div class="eyebrow">Herramienta gratuita · CSV local</div>
+      <h1 id="titulo">¿Cuánto te queda por cobrar?</h1>
+      <p class="lead">Comprueba el saldo pendiente, lo que ya ha vencido y lo que vence durante los próximos siete días. Tus datos se procesan <strong>solo en este navegador</strong>.</p>
+      <div class="hero-points"><span>Sin registro</span><span>Sin subir archivos</span><span>Sin instalar nada</span></div>
+    </section>
+
+    <section class="card" aria-labelledby="paso1">
+      <div class="section-heading"><span class="step">1</span><div><h2 id="paso1">Pega o elige tu CSV</h2><p>Usa las seis columnas indicadas. Las fechas deben ser <code>AAAA-MM-DD</code> y los importes, sin separadores de millares.</p></div></div>
+      <div class="input-grid">
+        <div>
+          <label for="csv">Contenido CSV</label>
+          <textarea id="csv" spellcheck="false" rows="9" placeholder="factura;cliente;emision;vencimiento;importe;cobrado&#10;F-001;Cliente A;2026-10-01;2026-10-06;1000,00;250,00"></textarea>
+          <div class="helper-actions"><button id="ejemplo" type="button" class="text-button">Cargar ejemplo ficticio</button><button id="limpiar" type="button" class="text-button">Borrar datos</button></div>
+        </div>
+        <div class="aside-input">
+          <label for="archivo">O selecciona un archivo CSV</label>
+          <input id="archivo" type="file" accept=".csv,text/csv,text/plain">
+          <p>Al elegirlo, se leerá localmente y aparecerá en el cuadro de texto. Tamaño máximo: 2 MB.</p>
+          <label for="fecha">Fecha de consulta</label>
+          <input id="fecha" type="date" required>
+          <p>Una factura vence cuando su fecha de vencimiento es anterior a esta fecha. El propio día de vencimiento cuenta entre los próximos siete días.</p>
+        </div>
+      </div>
+      <button id="calcular" type="button" class="primary">Calcular saldos</button>
+      <p id="mensaje" class="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="resultados" class="results" aria-labelledby="paso2" hidden>
+      <div class="section-heading"><span class="step">2</span><div><h2 id="paso2">Resultado</h2><p id="resumen-estado"></p></div></div>
+      <div class="metric-grid">
+        <div class="metric"><span>Emitido</span><strong id="emitido">—</strong></div>
+        <div class="metric"><span>Cobrado</span><strong id="cobrado">—</strong></div>
+        <div class="metric highlight"><span>Pendiente</span><strong id="pendiente">—</strong></div>
+        <div class="metric warning"><span>Ya vencido</span><strong id="vencido">—</strong></div>
+        <div class="metric"><span>Vence en 7 días</span><strong id="proximos">—</strong></div>
+      </div>
+      <h3>Detalle de facturas válidas</h3>
+      <div class="table-wrap"><table><thead><tr><th>Factura</th><th>Cliente</th><th>Vence</th><th>Estado</th><th class="num">Saldo</th></tr></thead><tbody id="detalle"></tbody></table></div>
+      <div id="errores-wrap" class="errors" hidden><h3>Filas excluidas de los totales</h3><ul id="errores"></ul><p>Corrige esas filas y vuelve a calcular. No uses el total como completo mientras falten facturas.</p></div>
+    </section>
+
+    <section class="info-grid" aria-label="Ayuda y plantilla ampliada">
+      <article class="info-card"><h2>Formato del CSV</h2><p>Cabeceras: <code>factura;cliente;emision;vencimiento;importe;cobrado</code>. Se admiten punto o coma decimal y separador de columnas <code>;</code> o <code>,</code>. Si usas coma para ambas cosas, encierra los importes decimales entre comillas.</p><p><a href="ejemplo-ficticio.csv" download>Descargar CSV de ejemplo</a> · <a href="https://herramientasclarasgestion.blogspot.com/2026/10/facturas-vencidas-saldo-pendiente-excel.html">Ver guía con fórmulas</a></p></article>
+      <article class="info-card accent"><h2>¿Necesitas llevar el seguimiento en Excel?</h2><p>La <a href="https://payhip.com/b/h5uGQ">plantilla de facturas pendientes</a> permite registrar hasta 120 facturas, revisar vencimientos y conservar el control en una hoja editable. Es un producto de pago independiente; esta calculadora es gratuita y funciona por sí sola.</p></article>
+    </section>
+    <p class="fine-print">Seguimiento interno orientativo. No emite facturas, no calcula impuestos ni envía recordatorios. Comprueba que tu CSV contiene todas las facturas del periodo y los cobros acumulados actualizados.</p>
+  </main>
+  <footer class="site-footer"><div class="shell">Herramientas Claras · <a href="https://github.com/gonzalezreciogpt-a11y/facturas-pendientes-csv">Código y licencia MIT</a> · Sin analítica ni anuncios en esta página</div></footer>
+</body>
+</html>

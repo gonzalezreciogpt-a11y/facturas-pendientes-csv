@@ -2,6 +2,10 @@
 
 Pequeña herramienta gratuita para saber cuánto queda por cobrar, qué saldo ya venció y qué saldo vence en los próximos siete días. Todo se calcula **en tu ordenador**: el programa no envía el CSV a ningún servidor. Requiere Python 3.10 o posterior y no instala paquetes.
 
+## Usar directamente en el navegador
+
+La [calculadora web gratuita](https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/) permite pegar o seleccionar el CSV y consultar los saldos sin instalar Python. El archivo se procesa localmente en el navegador; la página no envía los datos a un servidor. Admite hasta 5.000 facturas y archivos de 2 MB. El código de la página está en [`docs/`](docs/).
+
 ## Uso
 
 Guarda tus datos como CSV UTF-8 con estas seis columnas:
@@ -35,6 +39,7 @@ Si prefieres una hoja visual sin ejecutar Python, [la plantilla Excel de factura
 
 ```sh
 python -m unittest -v
+node test_web.js
 ```
 
 ## Licencia
