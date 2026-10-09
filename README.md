@@ -10,6 +10,8 @@ También publicamos una [calculadora gratuita del precio mínimo de un servicio]
 
 La [calculadora gratuita para comparar presupuestos de proveedores](https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/comparar-proveedores/) contrasta hasta tres cotizaciones para una misma compra. Suma unidades × precio unitario + envío, destaca el menor coste y el menor plazo, y muestra las diferencias entre ofertas. También funciona sin registro y sin enviar las cifras a un servidor.
 
+Para otros problemas de gestión, la [guía para elegir una plantilla](https://gonzalezreciogpt-a11y.github.io/facturas-pendientes-csv/plantillas-gestion/) reúne métodos gratuitos y hojas de pago diferenciadas por el trabajo que resuelven. La calculadora de facturas de este repositorio sigue siendo gratuita y completa por sí misma.
+
 ## Uso
 
 Guarda tus datos como CSV UTF-8 con estas seis columnas:
